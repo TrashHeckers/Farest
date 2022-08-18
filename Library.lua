@@ -264,7 +264,7 @@ function Hubs:CreateHub(HubName, Theme)
 	local Primary = true
 
 	function Tabs:NewTab(TabName, TabIcon)
-		
+
 		TabName = TabName or "Tab"
 		TabIcon	= TabIcon or "rbxassetid://10537918474"
 
@@ -316,13 +316,13 @@ function Hubs:CreateHub(HubName, Theme)
 			Icon = Instance.new("ImageLabel"),
 			Display = Instance.new("TextLabel")
 		}
-		
+
 		local function UpdateElementSize()
 
 			local CanvasSize = TabInstances.Inset.AbsoluteContentSize
-			
+
 			TweenService:Create(TabInstances.Core, TweenInfo.new(0.15, Enum.EasingStyle, Enum.EasingDirection.In), {
-				CanvasSize = UDim2.new(0, CanvasSize.X,0, CanvasSize.Y)
+				CanvasSize = UDim2.new(0, 0,0, CanvasSize.Y)
 			})
 
 		end

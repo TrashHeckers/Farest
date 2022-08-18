@@ -321,7 +321,7 @@ function Hubs:CreateHub(HubName, Theme)
 
 			local CanvasSize = TabInstances.Inset.AbsoluteContentSize
 
-			TweenService:Create(TabInstances.Core, TweenInfo.new(0.15, Enum.EasingStyle, Enum.EasingDirection.In), {
+			TweenService:Create(TabInstances.Core, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
 				CanvasSize = UDim2.new(0, 0,0, CanvasSize.Y)
 			}):Play()
 

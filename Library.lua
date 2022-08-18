@@ -338,6 +338,7 @@ function Hubs:CreateHub(HubName, Theme)
 		TabInstances.Inset.Name = GUIDString
 		TabInstances.Inset.Parent = TabInstances.Core
 		TabInstances.Inset.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		TabInstances.Inset.Padding = UDim.new(0, 3)
 
 		ButtonInstances.Core.Name = TabName
 		ButtonInstances.Core.Parent = HubPanels.TabList

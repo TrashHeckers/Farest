@@ -383,9 +383,11 @@ function Hubs:CreateHub(HubName, Theme)
 
 				for i, Variable in pairs(TabInstances.Core:GetChildren()) do
 					if Variable:IsA("Frame") then
-						if not ElementAmount:WaitForChild(Variable.Name) then
-							table.insert(ElementFinded, ElementAmount)
-							ElementAmount += 1
+						for i, Element in pairs(ElementFinded) do
+							if not Element then
+								ElementAmount += 1
+								table.insert(ElementFinded, Variable.Name)
+							end
 						end
 					end
 				end

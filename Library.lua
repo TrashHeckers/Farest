@@ -307,7 +307,7 @@ function Hubs:CreateHub(HubName, Theme)
 
 		local TabInstances = {
 			Core = Instance.new("ScrollingFrame"),
-			Inset = Instance.new("UIGridLayout")
+			Inset = Instance.new("UIListLayout")
 		}
 
 		local ButtonInstances = {

@@ -25,6 +25,7 @@ local Themes = {
 
 local UserInputService = game:GetService("UserInputService")
 local HttpService = game:GetService("HttpService")
+local TweenService = game:GetService("TweenService")
 
 -- Description --
 
@@ -263,7 +264,7 @@ function Hubs:CreateHub(HubName, Theme)
 	local Primary = true
 
 	function Tabs:NewTab(TabName, TabIcon)
-
+		
 		TabName = TabName or "Tab"
 		TabIcon	= TabIcon or "rbxassetid://10537918474"
 
@@ -315,6 +316,16 @@ function Hubs:CreateHub(HubName, Theme)
 			Icon = Instance.new("ImageLabel"),
 			Display = Instance.new("TextLabel")
 		}
+		
+		local function UpdateElementSize()
+
+			local CanvasSize = TabInstances.Inset.AbsoluteContentSize
+			
+			TweenService:Create(TabInstances.Core, TweenInfo.new(0.15, Enum.EasingStyle, Enum.EasingDirection.In), {
+				CanvasSize = UDim2.new(0, CanvasSize.X,0, CanvasSize.Y)
+			})
+
+		end
 
 		TabInstances.Core.Name = TabName
 		TabInstances.Core.Parent = HubInstances.PageFolder
@@ -372,36 +383,12 @@ function Hubs:CreateHub(HubName, Theme)
 			ButtonInstances.Display.TextTransparency = 0.25
 		end
 
-		local ElementFinded = {}
-
 		coroutine.wrap(function()
 			while wait() do
 				ButtonInstances.Core.BackgroundColor3 = Theme.Elements
 				ButtonInstances.Icon.ImageColor3 = Theme.Text
 				ButtonInstances.Display.TextColor3 = Theme.Text
-				print(ElementAmount.." Detected Elements")
-
-				for i, Variable in pairs(TabInstances.Core:GetChildren()) do
-					if Variable:IsA("Frame") then
-						for i, Element in pairs(ElementFinded) do
-							if not Element then
-								ElementAmount += 1
-								table.insert(ElementFinded, Variable.Name)
-							end
-						end
-					end
-				end
-
-				if ElementAmount < 7 then
-					TabInstances.Core.CanvasSize = UDim2.new(0, 0,0, 0)
-					TabInstances.Inset.CellSize = UDim2.new(0.875, 0,0.125, 0)
-					TabInstances.Inset.CellPadding = UDim2.new(0, 0,0, 3)
-				else if ElementAmount > 7 then
-						TabInstances.Core.CanvasSize = UDim2.new(0, 0,ElementAmount / ElementAmount, 0)
-						TabInstances.Inset.CellSize = UDim2.new(0.875, 0,ElementAmount / ElementAmount / ElementAmount, 0)
-						TabInstances.Inset.CellPadding = UDim2.new(0, 0,0, ElementAmount/ 10)
-					end
-				end
+				UpdateElementSize()
 			end
 		end)()
 
@@ -427,6 +414,7 @@ function Hubs:CreateHub(HubName, Theme)
 				Content.Core.Parent = Parent
 				Content.Core.AnchorPoint = AnchorPoint
 				Content.Core.BackgroundColor3 = Theme.Elements
+				Content.Core.Size = UDim2.new(0.875, 0,0, 45)
 
 				Content.Icon.Name = GUIDString
 				Content.Icon.Parent = Content.Core

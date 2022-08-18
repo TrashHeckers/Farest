@@ -26,6 +26,7 @@ local Themes = {
 local UserInputService = game:GetService("UserInputService")
 local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
 
 -- Description --
 
@@ -302,6 +303,8 @@ function Hubs:CreateHub(HubName, Theme)
 				end
 			end
 		end
+		
+		table.insert(Tabs, TabName)
 
 		local ElementAmount = 0
 
@@ -398,16 +401,17 @@ function Hubs:CreateHub(HubName, Theme)
 
 			SectionName = SectionName or "Section"
 			SectionIcon = SectionIcon or "rbxassetid://0"
+			
+			table.insert(Sections, SectionName)
 
-			local function NewElement(Parent, Icon, Input, Left)
+			local function NewElement(Parent, Input, Left)
 
 				Parent = Parent or Instance
-				Icon = Icon or "rbxassetid://0"
 				Input = Input or "Template"
+				Left = Left or true
 
 				local Content = {
 					Core = Instance.new("Frame"),
-					Icon = Instance.new("ImageLabel"),
 					Corner = Instance.new("UICorner"),
 					Display = Instance.new("TextLabel")
 				}
@@ -417,15 +421,6 @@ function Hubs:CreateHub(HubName, Theme)
 				Content.Core.AnchorPoint = AnchorPoint
 				Content.Core.BackgroundColor3 = Theme.Elements
 				Content.Core.Size = UDim2.new(0.875, 0,0, 45)
-
-				Content.Icon.Name = GUIDString
-				Content.Icon.Parent = Content.Core
-				Content.Icon.AnchorPoint = AnchorPoint
-				Content.Icon.BackgroundTransparency = 1
-				Content.Icon.Position = UDim2.new(0.065, 0,0.5, 0)
-				Content.Icon.Size = UDim2.new(0.08, 0,0.715, 0)
-				Content.Icon.ImageColor3 = Theme.Text
-				Content.Icon.Image = Icon
 
 				Content.Corner.Name = GUIDString
 				Content.Corner.Parent = Content.Core
@@ -452,7 +447,74 @@ function Hubs:CreateHub(HubName, Theme)
 				Content.Display.Text = Input
 			end
 
-			NewElement(TabInstances.Core, SectionIcon, SectionName, false)
+			local Section = NewElement(TabInstances.Core, SectionName, false)
+
+			coroutine.wrap(function()
+				while wait() do
+					Section.Content.Core.BackgroundColor3 = Theme.Elements
+					Section.Content.Display.TextColor3 = Theme.Text
+				end
+			end)()
+			
+			local function ButtonAnimation(Parent)
+				
+				Parent = Parent or Instance
+				
+				local Mouse = Players.LocalPlayer:GetMouse()
+				
+				local Image = Instance.new("ImageLabel")
+
+				Image.Parent = Parent
+				Image.Name = "STRING-"..GUIDString
+				Image.Position = UDim2.new(0, Mouse.X, 0,Mouse.Y)
+				Image.ImageColor3 = Theme.Text
+				Image.Image = "rbxassetid://10477070900"
+				
+				Image:TweenSize(UDim2.new(1.3, 0,1.3, 0),
+					Enum.EasingDirection.Out,
+					Enum.EasingStyle.Linear,
+					0.25,
+					false
+				)
+
+				coroutine.wrap(function()
+					while wait() do
+						Image.ImageColor3 = Theme.Text
+					end
+				end)()
+			end
+			
+			function Elements:Button(ButtonName, Function)
+				
+				ButtonName = ButtonName or "Button"
+				Function = Function or function() end
+				
+				table.insert(Elements, ButtonName)
+				
+				local ButtonInstances = {
+					Core = NewElement(TabInstances.Core, ButtonName),
+					Detector = Instance.new("TextButton")
+				}
+
+				ButtonInstances.Detector.Name = GUIDString
+				ButtonInstances.Detector.AnchorPoint = AnchorPoint
+				ButtonInstances.Detector.Text = ""
+				ButtonInstances.Detector.Position = UDim2.new(0.5, 0,0.5, 0)
+				ButtonInstances.Detector.Size = UDim2.new(1, 0,1, 0)
+				ButtonInstances.Detector.AutoButtonColor = false
+				ButtonInstances.Detector.MouseButton1Click:Connect(function()
+					Function()
+					ButtonAnimation(ButtonInstances.Core)
+				end)
+
+				coroutine.wrap(function()
+					while wait() do
+						ButtonInstances.Core.Content.Core.BackgroundColor3 = Theme.Elements
+						ButtonInstances.Core.Content.Display.TextColor3 = Theme.Text
+					end
+				end)()
+			end
+			return Elements
 		end
 		return Sections
 	end

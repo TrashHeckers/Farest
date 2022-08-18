@@ -323,7 +323,7 @@ function Hubs:CreateHub(HubName, Theme)
 
 			TweenService:Create(TabInstances.Core, TweenInfo.new(0.15, Enum.EasingStyle, Enum.EasingDirection.In), {
 				CanvasSize = UDim2.new(0, 0,0, CanvasSize.Y)
-			})
+			}):Play()
 
 		end
 

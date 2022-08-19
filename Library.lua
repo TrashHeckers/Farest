@@ -303,7 +303,7 @@ function Hubs:CreateHub(HubName, Theme)
 				end
 			end
 		end
-		
+
 		table.insert(Tabs, TabName)
 
 		local ElementAmount = 0
@@ -401,7 +401,7 @@ function Hubs:CreateHub(HubName, Theme)
 
 			SectionName = SectionName or "Section"
 			SectionIcon = SectionIcon or "rbxassetid://0"
-			
+
 			table.insert(Sections, SectionName)
 
 			local function NewElement(Parent, Input, Left)
@@ -437,7 +437,7 @@ function Hubs:CreateHub(HubName, Theme)
 					Content.Display.TextXAlignment = Enum.TextXAlignment.Left
 					Content.Display.Position = UDim2.new(0.565, 0,0.5, 0)
 					Content.Display.Font = Enum.Font.SourceSans
-				else
+				else if Left == false then
 					Content.Display.Position = UDim2.new(0.5, 0,0.5, 0)
 					Content.Display.Font = Enum.Font.SourceSansBold
 				end
@@ -455,13 +455,13 @@ function Hubs:CreateHub(HubName, Theme)
 					Section.Content.Display.TextColor3 = Theme.Text
 				end
 			end)()
-			
+
 			local function ButtonAnimation(Parent)
-				
+
 				Parent = Parent or Instance
-				
+
 				local Mouse = Players.LocalPlayer:GetMouse()
-				
+
 				local Image = Instance.new("ImageLabel")
 
 				Image.Parent = Parent
@@ -469,7 +469,7 @@ function Hubs:CreateHub(HubName, Theme)
 				Image.Position = UDim2.new(0, Mouse.X, 0,Mouse.Y)
 				Image.ImageColor3 = Theme.Text
 				Image.Image = "rbxassetid://10477070900"
-				
+
 				Image:TweenSize(UDim2.new(1.3, 0,1.3, 0),
 					Enum.EasingDirection.Out,
 					Enum.EasingStyle.Linear,
@@ -483,14 +483,14 @@ function Hubs:CreateHub(HubName, Theme)
 					end
 				end)()
 			end
-			
+
 			function Elements:Button(ButtonName, Function)
-				
+
 				ButtonName = ButtonName or "Button"
 				Function = Function or function() end
-				
+
 				table.insert(Elements, ButtonName)
-				
+
 				local ButtonInstances = {
 					Core = NewElement(TabInstances.Core, ButtonName),
 					Detector = Instance.new("TextButton")

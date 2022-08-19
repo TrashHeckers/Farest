@@ -497,9 +497,11 @@ function Hubs:CreateHub(HubName, Theme)
 					Core = NewElement(TabInstances.Core, ButtonName),
 					Detector = Instance.new("TextButton")
 				}
-
+				
+				ButtonInstances.Detector.Parent = ButtonInstances.Core
 				ButtonInstances.Detector.Name = GUIDString
 				ButtonInstances.Detector.AnchorPoint = AnchorPoint
+				ButtonInstances.Detector.BackgroundTransparency = 1
 				ButtonInstances.Detector.Text = ""
 				ButtonInstances.Detector.Position = UDim2.new(0.5, 0,0.5, 0)
 				ButtonInstances.Detector.Size = UDim2.new(1, 0,1, 0)

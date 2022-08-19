@@ -432,7 +432,10 @@ function Hubs:CreateHub(HubName, Theme)
 				Content.Display.BackgroundTransparency = 1
 				Content.Display.Position = UDim2.new(0.45, 0,0.5, 0)
 				Content.Display.Size = UDim2.new(0.865, 0,0.85, 0)
-
+				Content.Display.TextScaled = true
+				Content.Display.TextColor3 = Theme.Text
+				Content.Display.Text = Input
+				
 				if Left == true then
 					Content.Display.TextXAlignment = Enum.TextXAlignment.Left
 					Content.Display.Position = UDim2.new(0.45, 0,0.5, 0)
@@ -441,10 +444,6 @@ function Hubs:CreateHub(HubName, Theme)
 						Content.Display.Position = UDim2.new(0.5, 0,0.5, 0)
 						Content.Display.Font = Enum.Font.SourceSansBold
 					end
-
-					Content.Display.TextScaled = true
-					Content.Display.TextColor3 = Theme.Text
-					Content.Display.Text = Input
 				end
 
 				coroutine.wrap(function()
@@ -497,7 +496,7 @@ function Hubs:CreateHub(HubName, Theme)
 					Core = NewElement(TabInstances.Core, ButtonName),
 					Detector = Instance.new("TextButton")
 				}
-				
+
 				ButtonInstances.Detector.Parent = ButtonInstances.Core
 				ButtonInstances.Detector.Name = GUIDString
 				ButtonInstances.Detector.AnchorPoint = AnchorPoint

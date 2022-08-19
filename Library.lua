@@ -430,31 +430,33 @@ function Hubs:CreateHub(HubName, Theme)
 				Content.Display.Parent = Content.Core
 				Content.Display.AnchorPoint = AnchorPoint
 				Content.Display.BackgroundTransparency = 1
-				Content.Display.Position = UDim2.new(0.565, 0,0.5, 0)
+				Content.Display.Position = UDim2.new(0.45, 0,0.5, 0)
 				Content.Display.Size = UDim2.new(0.865, 0,0.85, 0)
 
 				if Left == true then
 					Content.Display.TextXAlignment = Enum.TextXAlignment.Left
-					Content.Display.Position = UDim2.new(0.565, 0,0.5, 0)
+					Content.Display.Position = UDim2.new(0.45, 0,0.5, 0)
 					Content.Display.Font = Enum.Font.SourceSans
 				else if Left == false then
-					Content.Display.Position = UDim2.new(0.5, 0,0.5, 0)
-					Content.Display.Font = Enum.Font.SourceSansBold
+						Content.Display.Position = UDim2.new(0.5, 0,0.5, 0)
+						Content.Display.Font = Enum.Font.SourceSansBold
+					end
+
+					Content.Display.TextScaled = true
+					Content.Display.TextColor3 = Theme.Text
+					Content.Display.Text = Input
 				end
 
-				Content.Display.TextScaled = true
-				Content.Display.TextColor3 = Theme.Text
-				Content.Display.Text = Input
+				coroutine.wrap(function()
+					while wait() do
+						Content.Core.BackgroundColor3 = Theme.Elements
+						Content.Display.TextColor3 = Theme.Text
+					end
+				end)()
 			end
 
 			local Section = NewElement(TabInstances.Core, SectionName, false)
 
-			coroutine.wrap(function()
-				while wait() do
-					Section.Content.Core.BackgroundColor3 = Theme.Elements
-					Section.Content.Display.TextColor3 = Theme.Text
-				end
-			end)()
 
 			local function ButtonAnimation(Parent)
 
@@ -509,7 +511,6 @@ function Hubs:CreateHub(HubName, Theme)
 
 				coroutine.wrap(function()
 					while wait() do
-						ButtonInstances.Core.Content.Core.BackgroundColor3 = Theme.Elements
 						ButtonInstances.Core.Content.Display.TextColor3 = Theme.Text
 					end
 				end)()

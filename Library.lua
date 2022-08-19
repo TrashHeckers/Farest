@@ -508,12 +508,6 @@ function Hubs:CreateHub(HubName, Theme)
 					Function()
 					ButtonAnimation(ButtonInstances.Core)
 				end)
-
-				coroutine.wrap(function()
-					while wait() do
-						ButtonInstances.Core.Content.Display.TextColor3 = Theme.Text
-					end
-				end)()
 			end
 			return Elements
 		end

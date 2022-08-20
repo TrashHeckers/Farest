@@ -119,9 +119,7 @@ function Hubs:CreateHub(HubName, Theme)
 	Theme = Themes[Theme]
 	table.insert(Hubs, HubName)
 
-	local HubPanels = {
-		TabList = Instance.new("ScrollingFrame")
-	}
+	local PanelList = Instance.new("ScrollingFrame")
 
 	local HubInstances = {
 		PrincipalUI = Instance.new("ScreenGui"),
@@ -132,7 +130,7 @@ function Hubs:CreateHub(HubName, Theme)
 
 	local HubVisibles = {
 		MainCorner = Instance.new("UICorner"),
-		PageInset = Instance.new("UIGridLayout")
+		PageInset = Instance.new("UIListLayout")
 	}
 
 	local HubDescription = {
@@ -217,42 +215,44 @@ function Hubs:CreateHub(HubName, Theme)
 	end)
 
 	local TabAmount = 0
+	
+	local function UpdateTabList()
 
-	HubPanels.TabList.Name = GUIDString
-	HubPanels.TabList.Parent = HubInstances.Core
-	HubPanels.TabList.AnchorPoint = AnchorPoint
-	HubPanels.TabList.Position = UDim2.new(0.15, 0,0.55, 0)
-	HubPanels.TabList.Size = UDim2.new(0.25, 0,0.785, 0)
-	HubPanels.TabList.BackgroundTransparency = 1
+	local CanvasSize = HubVisibles.PageInset.AbsoluteContentSize
 
-	HubPanels.TabList.ChildAdded:Connect(function()
+	TweenService:Create(PanelList, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+		CanvasSize = UDim2.new(0, 0,0, CanvasSize.Y)
+	}):Play()
+
+	end
+	
+	PanelList.Name = GUIDString
+	PanelList.Parent = HubInstances.Core
+	PanelList.AnchorPoint = AnchorPoint
+	PanelList.Position = UDim2.new(0.15, 0,0.55, 0)
+	PanelList.Size = UDim2.new(0.25, 0,0.785, 0)
+	PanelList.BackgroundTransparency = 1
+
+	PanelList.ChildAdded:Connect(function()
 		TabAmount += 1
+		UpdateTabList()
 	end)
-	HubPanels.TabList.ChildRemoved:Connect(function()
+	PanelList.ChildRemoved:Connect(function()
 		TabAmount -= 1
+		UpdateTabList()
 	end)
 
 	HubVisibles.PageInset.Name = GUIDString
-	HubVisibles.PageInset.Parent = HubPanels.TabList
-	HubVisibles.PageInset.CellPadding = UDim2.new(0, 0,0, 5)
-	HubVisibles.PageInset.CellSize = UDim2.new(0.875, 0,0.15, 0)
-
+	HubVisibles.PageInset.Parent = PanelList.TabList
+	HubVisibles.PageInset.CellPadding = UDim2.new(0, 0,0, 3)
+	
 	coroutine.wrap(function()
 		while wait() do
 			for i, Page in pairs(HubInstances.PageFolder:GetChildren()) do
 				Page.Visible = false
 			end
-			if TabAmount > 7 then
-
-				HubVisibles.PageInset.CellSize = UDim2.new(0.875, 0,TabAmount / TabAmount + 1, 0)
-				HubPanels.TabList.CanvasSize = UDim2.new(0, 0,TabAmount / TabAmount, 0)
-
-			else
-
-				HubVisibles.PageInset.CellSize = UDim2.new(0.875, 0,0.15, 0)
-				HubPanels.TabList.CanvasSize = UDim2.new(0, 0,0, 0)
-
-			end
+			
+			UpdateTabList()
 
 			HubInstances.Core.BackgroundColor3 = Theme.Background
 			HubDescription.Main.BackgroundColor3 = Theme.Background
@@ -280,8 +280,8 @@ function Hubs:CreateHub(HubName, Theme)
 							if Page.Name == GUIDString then
 								Page.Parent = HubInstances.Core
 							end
-							if HubPanels.TabList:WaitForChild(Page.Name) then
-								local Selection = HubPanels.TabList:WaitForChild(Page.Name)
+							if PanelList:WaitForChild(Page.Name) then
+								local Selection = PanelList:WaitForChild(Page.Name)
 								if Selection:IsA("TextButton") then
 									Selection.Display.TextTransparency = 0.25
 								end
@@ -292,7 +292,7 @@ function Hubs:CreateHub(HubName, Theme)
 					Page.Parent = HubInstances.Core
 					Page.Visible = true
 
-					local Selection = HubPanels.TabList:WaitForChild(Page.Name)
+					local Selection = PanelList:WaitForChild(Page.Name)
 
 					for i, Variable in pairs(Selection:GetChildren()) do
 						if Variable:IsA("TextLabel") then
@@ -345,8 +345,9 @@ function Hubs:CreateHub(HubName, Theme)
 		TabInstances.Inset.Padding = UDim.new(0, 5)
 
 		ButtonInstances.Core.Name = TabName
-		ButtonInstances.Core.Parent = HubPanels.TabList
+		ButtonInstances.Core.Parent = PanelList
 		ButtonInstances.Core.AnchorPoint = AnchorPoint
+		ButtonInstances.Core.Size = UDim2.new(0.9, 0,0, 40)
 		ButtonInstances.Core.TextTransparency = 1
 		ButtonInstances.Core.BackgroundColor3 = Theme.Elements
 		ButtonInstances.Core.AutoButtonColor = false
@@ -404,58 +405,39 @@ function Hubs:CreateHub(HubName, Theme)
 
 			table.insert(Sections, SectionName)
 
-			local function NewElement(Parent, Input, Left)
-
-				Parent = Parent or Instance
-				Input = Input or "Template"
-				Left = Left or true
-
-				local Content = {
-					Core = Instance.new("Frame"),
-					Corner = Instance.new("UICorner"),
-					Display = Instance.new("TextLabel")
-				}
-
-				Content.Core.Name = GUIDString
-				Content.Core.Parent = Parent
-				Content.Core.AnchorPoint = AnchorPoint
-				Content.Core.BackgroundColor3 = Theme.Elements
-				Content.Core.Size = UDim2.new(0.875, 0,0, 45)
-
-				Content.Corner.Name = GUIDString
-				Content.Corner.Parent = Content.Core
-				Content.Corner.CornerRadius = UDim.new(0.15, 0)
-
-				Content.Display.Name = GUIDString
-				Content.Display.Parent = Content.Core
-				Content.Display.AnchorPoint = AnchorPoint
-				Content.Display.BackgroundTransparency = 1
-				Content.Display.Position = UDim2.new(0.45, 0,0.5, 0)
-				Content.Display.Size = UDim2.new(0.865, 0,0.85, 0)
-				Content.Display.TextScaled = true
-				Content.Display.TextColor3 = Theme.Text
-				Content.Display.Text = Input
-				
-				if Left == true then
-					Content.Display.TextXAlignment = Enum.TextXAlignment.Left
-					Content.Display.Position = UDim2.new(0.45, 0,0.5, 0)
-					Content.Display.Font = Enum.Font.SourceSans
-				else if Left == false then
-						Content.Display.Position = UDim2.new(0.5, 0,0.5, 0)
-						Content.Display.Font = Enum.Font.SourceSansBold
-					end
+			local SectionContent = {
+				Core = Instance.new("Frame"),
+				Corner = Instance.new("UICorner"),
+				Display = Instance.new("TextLabel")
+			}
+			SectionContent.Core.Name = GUIDString
+			SectionContent.Core.Parent = TabInstances.Core
+			SectionContent.Core.AnchorPoint = AnchorPoint
+			SectionContent.Core.BackgroundColor3 = Theme.Elements
+			SectionContent.Core.Size = UDim2.new(0.875, 0,0, 45)
+			
+			SectionContent.Corner.Name = GUIDString
+			SectionContent.Corner.Parent = SectionContent.Core
+			SectionContent.Corner.CornerRadius = UDim.new(0.15, 0)
+			
+			SectionContent.Display.Name = GUIDString
+			SectionContent.Display.Parent = SectionContent.Core
+			SectionContent.Display.AnchorPoint = AnchorPoint
+			SectionContent.Display.BackgroundTransparency = 1
+			SectionContent.Display.Position = UDim2.new(0.45, 0,0.5, 0)
+			SectionContent.Display.Size = UDim2.new(0.865, 0,0.85, 0)
+			SectionContent.Display.TextScaled = true
+			SectionContent.Display.TextColor3 = Theme.Text
+			SectionContent.Display.Text = SectionName
+			SectionContent.Display.Position = UDim2.new(0.5, 0,0.5, 0)
+			SectionContent.Display.Font = Enum.Font.SourceSansBold
+			
+			coroutine.wrap(function()
+				while wait() do
+					SectionContent.Core.BackgroundColor3 = Theme.Elements
+					SectionContent.Display.TextColor3 = Theme.Text
 				end
-
-				coroutine.wrap(function()
-					while wait() do
-						Content.Core.BackgroundColor3 = Theme.Elements
-						Content.Display.TextColor3 = Theme.Text
-					end
-				end)()
-			end
-
-			local Section = NewElement(TabInstances.Core, SectionName, false)
-
+			end)()
 
 			local function ButtonAnimation(Parent)
 
@@ -493,9 +475,35 @@ function Hubs:CreateHub(HubName, Theme)
 				table.insert(Elements, ButtonName)
 
 				local ButtonInstances = {
-					Core = NewElement(TabInstances.Core, ButtonName),
+					Core = Instance.new("Frame"),
+					Corner = Instance.new("UICorner"),
+					Display = Instance.new("TextLabel"),
 					Detector = Instance.new("TextButton")
 				}
+
+				ButtonInstances.Core.Name = GUIDString
+				ButtonInstances.Core.Parent = TabInstances.Core
+				ButtonInstances.Core.AnchorPoint = AnchorPoint
+				ButtonInstances.Core.BackgroundColor3 = Theme.Elements
+				ButtonInstances.Core.Size = UDim2.new(0.875, 0,0, 45)
+
+				ButtonInstances.Corner.Name = GUIDString
+				ButtonInstances.Corner.Parent = ButtonInstances.Core
+				ButtonInstances.Corner.CornerRadius = UDim.new(0.15, 0)
+
+				ButtonInstances.Display.Name = GUIDString
+				ButtonInstances.Display.Parent = ButtonInstances.Core
+				ButtonInstances.Display.AnchorPoint = AnchorPoint
+				ButtonInstances.Display.BackgroundTransparency = 1
+				ButtonInstances.Display.Position = UDim2.new(0.45, 0,0.5, 0)
+				ButtonInstances.Display.Size = UDim2.new(0.865, 0,0.85, 0)
+				ButtonInstances.Display.TextScaled = true
+				ButtonInstances.Display.TextColor3 = Theme.Text
+				ButtonInstances.Display.Text = ButtonName
+
+				ButtonInstances.Display.TextXAlignment = Enum.TextXAlignment.Left
+				ButtonInstances.Display.Position = UDim2.new(0.45, 0,0.5, 0)
+				ButtonInstances.Display.Font = Enum.Font.SourceSans
 
 				ButtonInstances.Detector.Parent = ButtonInstances.Core
 				ButtonInstances.Detector.Name = GUIDString
@@ -509,6 +517,13 @@ function Hubs:CreateHub(HubName, Theme)
 					Function()
 					ButtonAnimation(ButtonInstances.Core)
 				end)
+				
+				coroutine.wrap(function()
+					while wait() do
+						ButtonInstances.Core.BackgroundColor3 = Theme.Elements
+						ButtonInstances.Display.TextColor3 = Theme.Text
+					end
+				end)()
 			end
 			return Elements
 		end

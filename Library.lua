@@ -215,17 +215,17 @@ function Hubs:CreateHub(HubName, Theme)
 	end)
 
 	local TabAmount = 0
-	
+
 	local function UpdateTabList()
 
-	local CanvasSize = HubVisibles.PageInset.AbsoluteContentSize
+		local CanvasSize = HubVisibles.PageInset.AbsoluteContentSize
 
-	TweenService:Create(PanelList, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-		CanvasSize = UDim2.new(0, 0,0, CanvasSize.Y)
-	}):Play()
+		TweenService:Create(PanelList, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+			CanvasSize = UDim2.new(0, 0,0, CanvasSize.Y)
+		}):Play()
 
 	end
-	
+
 	PanelList.Name = GUIDString
 	PanelList.Parent = HubInstances.Core
 	PanelList.AnchorPoint = AnchorPoint
@@ -245,13 +245,13 @@ function Hubs:CreateHub(HubName, Theme)
 	HubVisibles.PageInset.Name = GUIDString
 	HubVisibles.PageInset.Parent = PanelList
 	HubVisibles.PageInset.CellPadding = UDim2.new(0, 0,0, 3)
-	
+
 	coroutine.wrap(function()
 		while wait() do
 			for i, Page in pairs(HubInstances.PageFolder:GetChildren()) do
 				Page.Visible = false
 			end
-			
+
 			UpdateTabList()
 
 			HubInstances.Core.BackgroundColor3 = Theme.Background
@@ -415,11 +415,11 @@ function Hubs:CreateHub(HubName, Theme)
 			SectionContent.Core.AnchorPoint = AnchorPoint
 			SectionContent.Core.BackgroundColor3 = Theme.Elements
 			SectionContent.Core.Size = UDim2.new(0.875, 0,0, 45)
-			
+
 			SectionContent.Corner.Name = GUIDString
 			SectionContent.Corner.Parent = SectionContent.Core
 			SectionContent.Corner.CornerRadius = UDim.new(0.15, 0)
-			
+
 			SectionContent.Display.Name = GUIDString
 			SectionContent.Display.Parent = SectionContent.Core
 			SectionContent.Display.AnchorPoint = AnchorPoint
@@ -431,7 +431,7 @@ function Hubs:CreateHub(HubName, Theme)
 			SectionContent.Display.Text = SectionName
 			SectionContent.Display.Position = UDim2.new(0.5, 0,0.5, 0)
 			SectionContent.Display.Font = Enum.Font.SourceSansBold
-			
+
 			coroutine.wrap(function()
 				while wait() do
 					SectionContent.Core.BackgroundColor3 = Theme.Elements
@@ -517,7 +517,7 @@ function Hubs:CreateHub(HubName, Theme)
 					Function()
 					ButtonAnimation(ButtonInstances.Core)
 				end)
-				
+
 				coroutine.wrap(function()
 					while wait() do
 						ButtonInstances.Core.BackgroundColor3 = Theme.Elements

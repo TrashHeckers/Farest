@@ -243,7 +243,7 @@ function Hubs:CreateHub(HubName, Theme)
 	end)
 
 	HubVisibles.PageInset.Name = GUIDString
-	HubVisibles.PageInset.Parent = TabList
+	HubVisibles.PageInset.Parent = PanelList
 	HubVisibles.PageInset.CellPadding = UDim2.new(0, 0,0, 3)
 	
 	coroutine.wrap(function()

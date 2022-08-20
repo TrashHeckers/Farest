@@ -244,7 +244,7 @@ function Hubs:CreateHub(HubName, Theme)
 
 	HubVisibles.PageInset.Name = GUIDString
 	HubVisibles.PageInset.Parent = PanelList
-	HubVisibles.PageInset.Padding = UDim.new(0, 4)
+	HubVisibles.PageInset.Padding = UDim2.new(0, 0,0, 4)
 
 	coroutine.wrap(function()
 		while wait() do
@@ -347,7 +347,7 @@ function Hubs:CreateHub(HubName, Theme)
 		ButtonInstances.Core.Name = TabName
 		ButtonInstances.Core.Parent = PanelList
 		ButtonInstances.Core.AnchorPoint = AnchorPoint
-		ButtonInstances.Core.Size = UDim2.new(0.9, 0,0, 40)
+		ButtonInstances.Core.Size = UDim2.new(0.9, 0,0, 50)
 		ButtonInstances.Core.TextTransparency = 1
 		ButtonInstances.Core.BackgroundColor3 = Theme.Elements
 		ButtonInstances.Core.AutoButtonColor = false

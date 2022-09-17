@@ -257,12 +257,76 @@ if ID == 537413528 then
                     while wait(FarmSpeed) do
                         StageHolding += 1
                         NextStage(StageHolding)
-                        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
                     end
                 end
-            else
-                game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
             end
+        end
+    })
+    
+    local AutoBuy = Player:AddSection({
+        Name = "Auto Buy"
+    })
+
+    local PuarchseInfo = {
+        Amount = 1,
+        Item = "Sign",
+        Automatic = false,
+        Cooldown = 5
+    }
+    
+    local function Puarchse(Information)
+        local I_A = Information.Amount
+        local I_I = Information.Item
+        local I_Au = Information.Automatic
+        local I_C = Information.Cooldown
+
+        if I_Au then
+            while wait(I_C) do
+                local PuarchseEvent = game:GetService("Workspace").ItemBoughtFromShop
+                PuarchseEvent:InvokeServer(I_I, I_A)
+            end
+        end
+    end
+
+    AutoBuy:AddSlider({
+        Name = "Amount",
+        Min = 1,
+        Max = 50,
+        Default = 1,
+        Color = Color3.fromRGB(41, 117, 217),
+        Increment = 1,
+        ValueName = "Items",
+        Callback = function(Value)
+            PuarchseInfo.Amount = Value
+        end
+    })
+    AutoBuy:AddDropdown({
+        Name = "Item",
+        Default = "Sign",
+        Options = {"Sign", "Shield Generators", "Harpoon", "Pistons", "TitaniumBlock"},
+        Callback = function(Item)
+            PuarchseInfo.Item = Item
+        end
+    })
+
+    AutoBuy:AddToggle({
+        Name = "Puarchse",
+        Default = false,
+        Callback = function(Value)
+            PuarchseInfo.Automatic = Value
+        end
+    })
+
+    AutoBuy:AddSlider({
+        Name = "Cooldown",
+        Min = 1,
+        Max = 60,
+        Default = 1,
+        Color = Color3.fromRGB(41, 117, 217),
+        Increment = 1,
+        ValueName = "Cooldown",
+        Callback = function(Value)
+            Puarchse(PuarchseInfo)
         end
     })
     OrionLib:Init()

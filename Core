@@ -134,6 +134,61 @@ if ID == 537413528 then
     })
     local StageHolding = 0
     local PassEnabled = true
+
+        local function AddClips()
+            local Clips = Instance.new("Folder", game.Workspace)
+
+            local First = Instance.new("Part", Clips)
+            First.Size = Vector3.new(10, 1, 10)
+            First.Position = Vector3.new(-50, 30, 1375)
+            First.Anchored = true
+
+            local Two = Instance.new("Part", Clips)
+            Two.Size = Vector3.new(10, 1, 10)
+            Two.Position = Vector3.new(-50, 30, 2145)
+            Two.Anchored = true
+
+            local Three = Instance.new("Part", Clips)
+            Three.Size = Vector3.new(10, 1, 10)
+            Three.Position = Vector3.new(-50, 30, 2915)
+            Three.Anchored = true
+
+            local Four = Instance.new("Part", Clips)
+            Four.Size = Vector3.new(10, 1, 10)
+            Four.Position = Vector3.new(-50, 30, 3675)
+            Four.Anchored = true
+
+            local Five = Instance.new("Part", Clips)
+            Five.Size = Vector3.new(10, 1, 10)
+            Five.Position = Vector3.new(-50, 30, 4450)
+            Five.Anchored = true
+
+            local Six = Instance.new("Part", Clips)
+            Six.Size = Vector3.new(10, 1, 10)
+            Six.Position = Vector3.new(-50, 30, 5215)
+            Six.Anchored = true
+
+            local Seven = Instance.new("Part", Clips)
+            Seven.Size = Vector3.new(10, 1, 10)
+            Seven.Position = Vector3.new(-50, 30, 5985)
+            Seven.Anchored = true
+
+            local Eight = Instance.new("Part", Clips)
+            Eight.Size = Vector3.new(10, 1, 10)
+            Eight.Position = Vector3.new(-50, 30, 6755)
+            Eight.Anchored = true
+
+            local Nine = Instance.new("Part", Clips)
+            Nine.Size = Vector3.new(10, 1, 10)
+            Nine.Position = Vector3.new(-50, 30, 7535)
+            Nine.Anchored = true
+
+            local Ten = Instance.new("Part", Clips)
+            Ten.Size = Vector3.new(10, 1, 10)
+            Ten.Position = Vector3.new(-50, 30, 8300)
+            Ten.Anchored = true
+        end
+        AddClips()
     local function NextStage(Stage)
         local Positions = {
             First = CFrame.new(-50, 30, 1375),
@@ -192,6 +247,7 @@ if ID == 537413528 then
             PassEnabled = true
         end
     end
+    
     Autofarm:AddToggle({
         Name = "Enabled",
         Default = false,

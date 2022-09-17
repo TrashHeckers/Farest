@@ -281,6 +281,8 @@ if ID == 537413528 then
         local I_C = Information.Cooldown
 
         if I_Au then
+            local PuarchseEvent = game:GetService("Workspace").ItemBoughtFromShop
+            PuarchseEvent:InvokeServer(I_I, I_A)
             while wait(I_C) do
                 local PuarchseEvent = game:GetService("Workspace").ItemBoughtFromShop
                 PuarchseEvent:InvokeServer(I_I, I_A)

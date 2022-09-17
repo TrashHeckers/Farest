@@ -1,0 +1,210 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local ID = game.PlaceId
+
+if ID == 4924922222 then
+    local Library = OrionLib:MakeWindow({
+        IntroText = "Farthest",
+        Name = "Brookhaven",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "Farthest"
+    })
+    local Server = Library:MakeTab({
+        Name = "Server",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = true
+    })
+    local Player = Library:MakeTab({
+        Name = "Player",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    local BanLots = game:GetService("ReplicatedStorage").BannedLots
+    
+    local S_Houses = Server:AddSection({
+        Name = "Houses"
+    })
+
+    S_Houses:AddToggle({
+        Name = "Ban Lots",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                for i, Lot in pairs(BanLots:GetChildren()) do
+                    Lot.Size = Vector3.new(92.3, 340, 105)
+                end
+            else
+                for i, Lot in pairs(BanLots:GetChildren()) do
+                    Lot.Size = Vector3.new(92.3, 340, 105)
+                end
+                for i, Lot in pairs(BanLots:GetChildren()) do
+                    Lot.Size = Vector3.new(0, 0, 0)
+                end
+            end
+        end
+    })
+    
+    local S_Mobility = Player:AddSection({
+        Name = "Mobility"
+    })
+    S_Mobility:AddSlider({
+        Name = "Speed",
+        Min = 0,
+        Max = 150,
+        Default = 16,
+        Color = Color3.fromRGB(41, 117, 217),
+        Increment = 1,
+        ValueName = "Moving Speed",
+        Callback = function(Value)
+            local Player = game.Players.LocalPlayer.Character.Humanoid
+            Player.WalkSpeed = Value
+        end
+    })
+    S_Mobility:AddSlider({
+        Name = "Jump",
+        Min = 0,
+        Max = 300,
+        Default = 16,
+        Color = Color3.fromRGB(41, 117, 217),
+        Increment = 1,
+        ValueName = "Jump Power",
+        Callback = function(Value)
+            local Player = game.Players.LocalPlayer.Character.Humanoid
+            Player.JumpPower = Value
+        end
+    })
+
+    while wait(1) do
+        if game.Workspace.Vehicles:WaitForChild(game.Players.LocalPlayer.Name.."Car") then
+            local S_Car = Player:AddSection({
+                Name = "Car"
+            })
+
+            S_Car:AddSlider({
+                Name = "Speed",
+                Min = 0,
+                Max = 500,
+                Default = 50,
+                Color = Color3.fromRGB(41, 117, 217),
+                Increment = 1,
+                ValueName = "Car Speed",
+                Callback = function(Value)
+                    while wait() do
+                        local CarFolder = game:GetService("Workspace").Vehicles
+                        local Car = CarFolder:WaitForChild(game.Players.LocalPlayer.Name.."Car")
+                        local PrivSeat = Car.Body.VehicleSeat
+                        PrivSeat.TopSpeed.Value = Value
+                    end
+                end
+            })
+        end
+    end
+    OrionLib:Init()
+end
+if ID == 537413528 then
+    local Library = OrionLib:MakeWindow({
+        IntroText = "Farthest",
+        Name = "Build a Boat",
+        HidePremium = false,
+        SaveConfig = true,
+        ConfigFolder = "Farthest"
+    })
+    local Player = Library:MakeTab({
+        Name = "Player",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = true
+    })
+    local Autofarm = Player:AddSection({
+        Name = "Auto Farm"
+    })
+    local FarmSpeed = 5
+    local FarmCooldown = 20 -- Chest Delay
+    Autofarm:AddSlider({
+        Name = "Speed",
+        Min = 1,
+        Max = 15,
+        Default = 5,
+        Color = Color3.fromRGB(41, 117, 217),
+        Increment = 1,
+        ValueName = "Cooldown",
+        Callback = function(Value)
+            FarmSpeed = Value
+        end
+    })
+    local StageHolding = 0
+    local PassEnabled = true
+    local function NextStage(Stage)
+        local Positions = {
+            First = CFrame.new(-50, 30, 1375),
+            Second = CFrame.new(-50, 30, 2145),
+            Third = CFrame.new(-50, 30, 2915),
+            Four = CFrame.new(-50, 30, 3675),
+            Five = CFrame.new(-50, 30, 4450),
+            Six = CFrame.new(-50, 30, 5215),
+            Seven = CFrame.new(-50, 30, 5985),
+            Eight = CFrame.new(-50, 30, 6755),
+            Nine = CFrame.new(-50, 30, 7535),
+            Ten = CFrame.new(-50, 30, 8300),
+            End = CFrame.new(-53, -335, 9500)
+        }
+
+        if Stage == 1 then
+            Stage = "First"
+        end
+        if Stage == 2 then
+            Stage = "Second"
+        end
+        if Stage == 3 then
+            Stage = "Third"
+        end
+        if Stage == 4 then
+            Stage = "Four"
+        end
+        if Stage == 5 then
+            Stage = "Five"
+        end
+        if Stage == 6 then
+            Stage = "Six"
+        end
+        if Stage == 7 then
+            Stage = "Seven"
+        end
+        if Stage == 8 then
+            Stage = "Eight"
+        end
+        if Stage == 9 then
+            Stage = "Nine"
+        end
+        if Stage == 10 then
+            Stage = "Ten"
+        end
+        if Stage == 11 then
+            Stage = "End"
+        end
+        local Target = Positions[Stage]
+        
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Target
+        if Stage == "End" then
+            PassEnabled = false
+            wait(FarmCooldown)
+            StageHolding = 0
+            PassEnabled = true
+        end
+    end
+    Autofarm:AddToggle({
+        Name = "Enabled",
+        Default = false,
+        Callback = function(Value)
+            if Value then
+                if PassEnabled then
+                    while wait(FarmSpeed) do
+                        StageHolding += 1
+                        NextStage(StageHolding)
+                    end
+                end
+            end
+        end
+    })
+    OrionLib:Init()
+end

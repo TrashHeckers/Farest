@@ -201,8 +201,11 @@ if ID == 537413528 then
                     while wait(FarmSpeed) do
                         StageHolding += 1
                         NextStage(StageHolding)
+                        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
                     end
                 end
+            else
+                game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
             end
         end
     })

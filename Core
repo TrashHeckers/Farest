@@ -62,7 +62,7 @@ if ID == 4924922222 then
         Name = "Jump",
         Min = 0,
         Max = 300,
-        Default = 16,
+        Default = 50,
         Color = Color3.fromRGB(41, 117, 217),
         Increment = 1,
         ValueName = "Jump Power",
@@ -72,7 +72,7 @@ if ID == 4924922222 then
         end
     })
 
-    while wait(1) do
+    while wait(.1) do
         if game.Workspace.Vehicles:WaitForChild(game.Players.LocalPlayer.Name.."Car") then
             local S_Car = Player:AddSection({
                 Name = "Car"

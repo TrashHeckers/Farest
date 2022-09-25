@@ -36,9 +36,6 @@ if ID == 4924922222 then
                 end
             else
                 for i, Lot in pairs(BanLots:GetChildren()) do
-                    Lot.Size = Vector3.new(92.3, 340, 105)
-                end
-                for i, Lot in pairs(BanLots:GetChildren()) do
                     Lot.Size = Vector3.new(0, 0, 0)
                 end
             end

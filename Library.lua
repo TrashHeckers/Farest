@@ -866,7 +866,7 @@ function Hubs:CreateHub(HubInformation)
 				local ButtonFunction = ButtonInformation.Function
 				ButtonName = ButtonName or "Button"
 				ButtonFunction = ButtonFunction or function() end
-				
+
 				local ButtonInstances = {
 					Core = Instance.new("Frame"),
 					Corner = Instance.new("UICorner"),
@@ -874,7 +874,7 @@ function Hubs:CreateHub(HubInformation)
 					Icon = Instance.new("ImageLabel"),
 					Display = Instance.new("TextLabel")
 				}
-				
+
 				table.insert(Elements, ButtonName)
 				ButtonInstances.Core.Parent = PageInstances.Core
 				local function TickElement()
@@ -1041,7 +1041,7 @@ function Hubs:CreateHub(HubInformation)
 					ButtonInstances.Display.TextXAlignment = Enum.TextXAlignment.Left
 					ButtonInstances.Display.TextYAlignment = Enum.TextYAlignment.Center
 				end
-				
+
 				ButtonInstances.Detector.MouseButton1Click:Connect(ButtonFunction)
 
 				RunService.Heartbeat:Connect(function()
@@ -1255,7 +1255,7 @@ function Hubs:CreateHub(HubInformation)
 					end
 				end)
 			end
-			
+
 			function Elements:Label(LabelDescription)
 				local LabelIcon = LabelDescription.Icon
 				local LabelText = LabelDescription.Text
@@ -1380,18 +1380,18 @@ function Hubs:CreateHub(HubInformation)
 					LabelInstances.Display.TextWrapped = true
 					LabelInstances.Display.TextXAlignment = Enum.TextXAlignment.Left
 					LabelInstances.Display.TextYAlignment = Enum.TextYAlignment.Center
-					
+
 					local function UpdateSize()
 						local ChangeSize = 0
-						
+
 						if LabelInstances.Display.TextBounds.X >= LabelInstances.Core.AbsoluteSize.X then
 							LabelInstances.Display.TextYAlignment = Enum.TextYAlignment.Top
 							LabelInstances.Display.TextWrapped = true
 							ChangeSize = LabelInstances.Display.TextBounds.X - LabelInstances.Core.AbsoluteSize.X
 						end
-						
-						LabelInstances.Display.Size.X += ChangeSize
-						LabelInstances.Core.Size.X += ChangeSize
+
+						LabelInstances.Display.Size.X.Offset += ChangeSize
+						LabelInstances.Core.Size.X.Offset += ChangeSize
 					end
 					UpdateSize()
 				end

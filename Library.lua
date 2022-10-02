@@ -145,6 +145,7 @@ function Hubs:CreateHub(HubInformation)
 	Modules:GetGame()
 
 	HubInstances.Core.Position = UDim2.new(0.5, 0,0.5, 0)
+	HubInstances.PageList.Parent = HubInstances.Side
 	local function TickHub()
 		HubInstances.Library.Archivable = true
 		HubInstances.Library.DisplayOrder = 0
@@ -343,18 +344,52 @@ function Hubs:CreateHub(HubInformation)
 		HubInstances.Side.SelectionGroup = false
 		HubInstances.Side.SelectionOrder = 0
 
+		HubInstances.PageList.SelectionImageObject = nil
+		HubInstances.PageList.Archivable = true
+		HubInstances.PageList.Active = false
 		HubInstances.PageList.AnchorPoint = AnchorPoint
+		HubInstances.PageList.AutomaticSize = Enum.AutomaticSize.None
 		HubInstances.PageList.BackgroundColor3 = Theme.Highlight
 		HubInstances.PageList.BackgroundTransparency = 1
 		HubInstances.PageList.BorderColor3 = Theme.Highlight
+		HubInstances.PageList.BorderMode = Enum.BorderMode.Outline
 		HubInstances.PageList.BorderSizePixel = 0
+		HubInstances.PageList.LayoutOrder = 0
 		HubInstances.PageList.Name = StringName
-		HubInstances.PageList.Parent = HubInstances.Side
 		HubInstances.PageList.Position = UDim2.new(0.5, 0,0.5, 0)
+		HubInstances.PageList.Rotation = 0
 		HubInstances.PageList.Size = UDim2.new(0.9, 0,0.875, 0) 
+		HubInstances.PageList.SizeConstraint = Enum.SizeConstraint.RelativeXY
 		HubInstances.PageList.Visible = true
+		HubInstances.PageList.ZIndex = 1
 		HubInstances.PageList.ClipsDescendants = true
+		HubInstances.PageList.AutoLocalize = true
+		HubInstances.PageList.RootLocalizationTable = nil
+		HubInstances.PageList.AutomaticCanvasSize = Enum.AutomaticSize.None
+		HubInstances.PageList.BottomImage = "rbxasset://textures/ui/Scroll/scroll-bottom.png"
 		HubInstances.PageList.CanvasSize = UDim2.new(0, 0,0, 0)
+		HubInstances.PageList.ElasticBehavior = Enum.ElasticBehavior.WhenScrollable
+		HubInstances.PageList.HorizontalScrollBarInset = Enum.ScrollBarInset.None
+		HubInstances.PageList.MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+		HubInstances.PageList.ScrollBarImageColor3 = Theme.Image
+		HubInstances.PageList.ScrollBarImageTransparency = 0
+		HubInstances.PageList.ScrollBarThickness = Size.X / 100
+		HubInstances.PageList.ScrollingDirection = Enum.ScrollingDirection.XY
+		HubInstances.PageList.ScrollingEnabled = true
+		HubInstances.PageList.TopImage = "rbxasset://textures/ui/Scroll/scroll-top.png"
+		HubInstances.PageList.VerticalScrollBarInset = Enum.ScrollBarInset.None
+		HubInstances.PageList.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
+		HubInstances.PageList.NextSelectionDown = nil
+		HubInstances.PageList.NextSelectionLeft = nil
+		HubInstances.PageList.NextSelectionRight = nil
+		HubInstances.PageList.NextSelectionUp = nil
+		HubInstances.PageList.Selectable = true
+		HubInstances.PageList.SelectionBehaviorDown = Enum.SelectionBehavior.Escape
+		HubInstances.PageList.SelectionBehaviorLeft = Enum.SelectionBehavior.Escape
+		HubInstances.PageList.SelectionBehaviorRight = Enum.SelectionBehavior.Escape
+		HubInstances.PageList.SelectionBehaviorUp = Enum.SelectionBehavior.Escape
+		HubInstances.PageList.SelectionGroup = true
+		HubInstances.PageList.SelectionOrder = 0
 
 		HubInstances.Listing.Padding = UDim.new(0, ElementSize / 6)
 		HubInstances.Listing.Archivable = true
@@ -418,6 +453,7 @@ function Hubs:CreateHub(HubInformation)
 
 		table.insert(Pages, PageName)
 		TabInstances.Core.Parent = HubInstances.PageList
+		PageInstances.Core.Parent = PageFolder
 		local function TickPage()
 			TabInstances.Core.SelectionImageObject = nil
 			TabInstances.Core.Archivable = true
@@ -582,19 +618,52 @@ function Hubs:CreateHub(HubInformation)
 			TabInstances.Display.TextXAlignment = Enum.TextXAlignment.Left
 			TabInstances.Display.TextYAlignment = Enum.TextYAlignment.Center
 
+			PageInstances.Core.SelectionImageObject = nil
+			PageInstances.Core.Archivable = true
+			PageInstances.Core.Active = false
 			PageInstances.Core.AnchorPoint = AnchorPoint
 			PageInstances.Core.AutomaticSize = Enum.AutomaticSize.None
 			PageInstances.Core.BackgroundColor3 = Theme.Highlight
+			PageInstances.Core.BackgroundTransparency = 0
 			PageInstances.Core.BorderColor3 = Theme.Highlight
+			PageInstances.Core.BorderMode = Enum.BorderMode.Outline
 			PageInstances.Core.BorderSizePixel = 0
+			PageInstances.Core.LayoutOrder = 0
 			PageInstances.Core.Name = StringName
-			PageInstances.Core.Parent = PageFolder
 			PageInstances.Core.Position = UDim2.new(0.675, 0,0.6, 0)
+			PageInstances.Core.Rotation = 0
 			PageInstances.Core.Size = UDim2.new(0.6, 0,0.725, 0) 
+			PageInstances.Core.SizeConstraint = Enum.SizeConstraint.RelativeXY
 			PageInstances.Core.Visible = true
 			PageInstances.Core.ZIndex = 1
 			PageInstances.Core.ClipsDescendants = true
+			PageInstances.Core.AutoLocalize = true
+			PageInstances.Core.RootLocalizationTable = nil
+			PageInstances.Core.AutomaticCanvasSize = Enum.AutomaticSize.None
+			PageInstances.Core.BottomImage = "rbxasset://textures/ui/Scroll/scroll-bottom.png"
 			PageInstances.Core.CanvasSize = UDim2.new(0, 0,0, 0)
+			PageInstances.Core.ElasticBehavior = Enum.ElasticBehavior.WhenScrollable
+			PageInstances.Core.HorizontalScrollBarInset = Enum.ScrollBarInset.None
+			PageInstances.Core.MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+			PageInstances.Core.ScrollBarImageColor3 = Theme.Image
+			PageInstances.Core.ScrollBarImageTransparency = 0
+			PageInstances.Core.ScrollBarThickness = Size.X / 100
+			PageInstances.Core.ScrollingDirection = Enum.ScrollingDirection.XY
+			PageInstances.Core.ScrollingEnabled = true
+			PageInstances.Core.TopImage = "rbxasset://textures/ui/Scroll/scroll-top.png"
+			PageInstances.Core.VerticalScrollBarInset = Enum.ScrollBarInset.None
+			PageInstances.Core.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
+			PageInstances.Core.NextSelectionDown = nil
+			PageInstances.Core.NextSelectionLeft = nil
+			PageInstances.Core.NextSelectionRight = nil
+			PageInstances.Core.NextSelectionUp = nil
+			PageInstances.Core.Selectable = true
+			PageInstances.Core.SelectionBehaviorDown = Enum.SelectionBehavior.Escape
+			PageInstances.Core.SelectionBehaviorLeft = Enum.SelectionBehavior.Escape
+			PageInstances.Core.SelectionBehaviorRight = Enum.SelectionBehavior.Escape
+			PageInstances.Core.SelectionBehaviorUp = Enum.SelectionBehavior.Escape
+			PageInstances.Core.SelectionGroup = true
+			PageInstances.Core.SelectionOrder = 0
 
 			PageInstances.List.Padding = UDim.new(0, Size.X / 100)
 			PageInstances.List.Archivable = true

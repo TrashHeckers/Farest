@@ -637,9 +637,7 @@ function Hubs:CreateHub(HubInformation)
 			PageInstances.Core.Visible = true
 			PageInstances.Core.ZIndex = 1
 			PageInstances.Core.ClipsDescendants = true
-			PageInstances.Core.AutoLocalize = false
 			PageInstances.Core.RootLocalizationTable = nil
-			PageInstances.Core.AutomaticCanvasSize = Enum.AutomaticSize.None
 			PageInstances.Core.BottomImage = "rbxasset://textures/ui/Scroll/scroll-bottom.png"
 			PageInstances.Core.CanvasSize = UDim2.new(0, 0,0, 0)
 			PageInstances.Core.ElasticBehavior = Enum.ElasticBehavior.WhenScrollable

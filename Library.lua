@@ -151,7 +151,7 @@ function Hubs:CreateHub(HubInformation)
 		HubInstances.Library.Enabled = true
 		HubInstances.Library.IgnoreGuiInset = false
 		HubInstances.Library.Name = StringName
-		HubInstances.Library.Parent = game.CoreGui
+		HubInstances.Library.Parent = game.Players.LocalPlayer.PlayerGui
 		HubInstances.Library.ResetOnSpawn = false
 		HubInstances.Library.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		HubInstances.Library.AutoLocalize = true
@@ -1268,7 +1268,7 @@ function Hubs:CreateHub(HubInformation)
 					Icon = Instance.new("ImageLabel"),
 					Display = Instance.new("TextLabel")
 				}
-
+				
 				LabelInstances.Core.Parent = PageInstances.Core
 				local function TickElement()
 					LabelInstances.Core.SelectionImageObject = nil
@@ -1355,7 +1355,7 @@ function Hubs:CreateHub(HubInformation)
 					LabelInstances.Display.SizeConstraint = Enum.SizeConstraint.RelativeXY
 					LabelInstances.Display.Visible = true
 					LabelInstances.Display.ZIndex = 1
-					LabelInstances.Display.ClipsDescendants = false
+					LabelInstances.Display.ClipsDescendants = true
 					LabelInstances.Display.AutoLocalize = true
 					LabelInstances.Display.RootLocalizationTable = nil
 					LabelInstances.Display.NextSelectionDown = nil
@@ -1384,14 +1384,13 @@ function Hubs:CreateHub(HubInformation)
 					local function UpdateSize()
 						local ChangeSize = 0
 
-						if LabelInstances.Display.TextBounds.X >= LabelInstances.Core.AbsoluteSize.X then
-							LabelInstances.Display.TextYAlignment = Enum.TextYAlignment.Top
+						if math.floor(LabelInstances.Core.AbsoluteSize.X) >= math.floor(LabelInstances.Display.TextBounds.X) then
 							LabelInstances.Display.TextWrapped = true
-							ChangeSize = LabelInstances.Display.TextBounds.X - LabelInstances.Core.AbsoluteSize.X
+							ChangeSize = math.floor(LabelInstances.Core.AbsoluteSize.X) - math.floor(LabelInstances.Display.TextBounds.X)
 						end
 
-						LabelInstances.Display.Size.X.Offset += ChangeSize
-						LabelInstances.Core.Size.X.Offset += ChangeSize
+						LabelInstances.Core.Size = UDim2.new(0.925, 0,0, LabelInstances.Core.Size.Y.Offset + ChangeSize)
+						LabelInstances.Display.Size = UDim2.new(0.825, 0,0, LabelInstances.Core.Size.Y.Offset)
 					end
 					UpdateSize()
 				end

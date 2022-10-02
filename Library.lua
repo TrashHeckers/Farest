@@ -637,7 +637,7 @@ function Hubs:CreateHub(HubInformation)
 			PageInstances.Core.Visible = true
 			PageInstances.Core.ZIndex = 1
 			PageInstances.Core.ClipsDescendants = true
-			PageInstances.Core.AutoLocalize = true
+			PageInstances.Core.AutoLocalize = false
 			PageInstances.Core.RootLocalizationTable = nil
 			PageInstances.Core.AutomaticCanvasSize = Enum.AutomaticSize.None
 			PageInstances.Core.BottomImage = "rbxasset://textures/ui/Scroll/scroll-bottom.png"
@@ -648,7 +648,6 @@ function Hubs:CreateHub(HubInformation)
 			PageInstances.Core.ScrollBarImageColor3 = Theme.Image
 			PageInstances.Core.ScrollBarImageTransparency = 0
 			PageInstances.Core.ScrollBarThickness = Size.X / 100
-			PageInstances.Core.ScrollingDirection = Enum.ScrollingDirection.XY
 			PageInstances.Core.ScrollingEnabled = true
 			PageInstances.Core.TopImage = "rbxasset://textures/ui/Scroll/scroll-top.png"
 			PageInstances.Core.VerticalScrollBarInset = Enum.ScrollBarInset.None
